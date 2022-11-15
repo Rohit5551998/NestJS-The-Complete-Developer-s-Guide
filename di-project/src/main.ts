@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { ComputerController } from './computer/computer.controller';
+import { ComputerModule } from './computer/computer.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(ComputerController);
+  const app = await NestFactory.create(ComputerModule);
   await app.listen(3000);
 }
 bootstrap();
