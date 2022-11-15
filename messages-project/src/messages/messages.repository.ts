@@ -1,23 +1,23 @@
-import path from "path";
+import { join } from "path";
 import { readFile, writeFile } from "fs/promises";
 
 export class MessagesRepository {
   async findOne(id: string) {
-    const contents = await readFile(path.join(__dirname, 'messages.json'), 'utf8');
+    const contents = await readFile(join(__dirname, '..', '..', 'messages.json'), 'utf8');
     const messages = JSON.parse(contents);
 
     return messages[id];
   }
 
   async findAll() {
-    const contents = await readFile(path.join(__dirname, 'messages.json'), 'utf8');
+    const contents = await readFile(join(__dirname, '..', '..', 'messages.json'), 'utf8');
     const messages = JSON.parse(contents);
 
     return messages;
   }
 
   async create(content: string) {
-    const contents = await readFile(path.join(__dirname, 'messages.json'), 'utf8');
+    const contents = await readFile(join(__dirname, '..', '..', 'messages.json'), 'utf8');
     const messages = JSON.parse(contents);
     const id = Object.keys(messages).length;
     //Random ID Generation
@@ -25,6 +25,7 @@ export class MessagesRepository {
     console.log(id);
     messages[id] = { id, content }; 
 
-    await writeFile(path.join(__dirname, 'messages.json'), JSON.stringify(messages));
+    await writeFile(join(__dirname, '..', '..', 'messages.json'), JSON.stringify(messages));
+    return messages[id];
   }
 }
