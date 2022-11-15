@@ -5,8 +5,12 @@ import { plainToInstance } from "class-transformer";
 // Making the Interceptor Generic
 // import { UserDto } from "../users/dtos/user.dto";
 
+interface ClassConstructor {
+  new (...args: any[]): {}
+}
+
 // Custom Decorator
-export function Serialize(dto:any) {
+export function Serialize(dto:ClassConstructor) {
   return UseInterceptors(new SerializeInterceptor(dto));
 }
 
