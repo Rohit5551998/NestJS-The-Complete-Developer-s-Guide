@@ -5,6 +5,11 @@ import { plainToInstance } from "class-transformer";
 // Making the Interceptor Generic
 // import { UserDto } from "../users/dtos/user.dto";
 
+// Custom Decorator
+export function Serialize(dto:any) {
+  return UseInterceptors(new SerializeInterceptor(dto));
+}
+
 export class SerializeInterceptor implements NestInterceptor{
   constructor(private dto:any) {}
 
