@@ -29,27 +29,31 @@ export class UsersController {
   ) {}
 
   // Session Test Routes
-  @Get('/colors/:color')
-  setColor(@Param('color') color:string, @Session() session:any) {
-    session.color = color;
-  }
+  // @Get('/colors/:color')
+  // setColor(@Param('color') color:string, @Session() session:any) {
+  //   session.color = color;
+  // }
 
-  // @Get('/colors')
-  getColor(@Session() session:any) {
-    console.log(session.color);
-    return session.color;
-  }
+  // // @Get('/colors')
+  // getColor(@Session() session:any) {
+  //   console.log(session.color);
+  //   return session.color;
+  // }
 
   @Post('/signup')
-  createUser(@Body() body: CreateUserDto) {
+  async createUser(@Body() body: CreateUserDto, @Session() session: any) {
     // console.log(body);
     // this.usersService.create(body.email, body.password);
-    return this.authService.signup(body.email, body.password);
+    const user = await this.authService.signup(body.email, body.password);
+    session.userId = user.id;
+    return user;
   }
 
   @Post('/signin')
-  signin(@Body() body: CreateUserDto) {
-    return this.authService.signin(body.email, body.password);
+  async signin(@Body() body: CreateUserDto, @Session() session: any) {
+    const user = await this.authService.signin(body.email, body.password);
+    session.userId = user.id;
+    return user;
   }
 
   // @UseInterceptors(new SerializeInterceptor(UserDto))
