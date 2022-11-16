@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { User } from './user.entity';
 
 @Injectable()
@@ -19,6 +19,9 @@ export class UsersService {
   }
 
   findOne(id: number) {
+    if (!id) {
+      throw new BadRequestException(`User with ID:${id} not found.`);
+    }
     return this.repo.findOneBy({ id });
   }
 

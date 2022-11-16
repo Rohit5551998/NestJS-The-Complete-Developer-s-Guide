@@ -39,6 +39,20 @@ export class UsersController {
   //   console.log(session.color);
   //   return session.color;
   // }
+  
+  @Get('/whoami')
+  whoAmI(@Session() session: any) {
+    return this.usersService.findOne(session.userId);
+  }
+
+  @Get('/signout')
+  signOut(@Session() session: any) {
+    if (!session.userId) {
+      throw new NotFoundException('No User Signed In');
+    }
+    session.userId = null;
+    return "User signed out successfully";
+  }
 
   @Post('/signup')
   async createUser(@Body() body: CreateUserDto, @Session() session: any) {
