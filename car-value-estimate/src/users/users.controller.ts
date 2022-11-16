@@ -8,6 +8,7 @@ import {
   Param, 
   Query, 
   NotFoundException,
+  Session,
   // UseInterceptors,
   // ClassSerializerInterceptor, 
 } from '@nestjs/common';
@@ -25,7 +26,19 @@ export class UsersController {
   constructor(
     private usersService: UsersService, 
     private authService: AuthService,
-    ) {}
+  ) {}
+
+  // Session Test Routes
+  @Get('/colors/:color')
+  setColor(@Param('color') color:string, @Session() session:any) {
+    session.color = color;
+  }
+
+  // @Get('/colors')
+  getColor(@Session() session:any) {
+    console.log(session.color);
+    return session.color;
+  }
 
   @Post('/signup')
   createUser(@Body() body: CreateUserDto) {
