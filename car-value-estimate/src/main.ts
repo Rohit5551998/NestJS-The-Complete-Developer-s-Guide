@@ -8,11 +8,12 @@ async function bootstrap() {
   app.use(cookieSession({
     keys: ['randomteststring']
   }));
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-    }),
-  );
+  // Imported inside App Module
+  // app.useGlobalPipes(
+  //   new ValidationPipe({
+  //     whitelist: true,
+  //   }),
+  // );
   await app.listen(3000);
 }
 bootstrap();
