@@ -9,6 +9,7 @@ import {
   Query, 
   NotFoundException,
   Session,
+  UseGuards,
   // UseInterceptors,
   // ClassSerializerInterceptor, 
 } from '@nestjs/common';
@@ -21,6 +22,7 @@ import { UpdateUserDto } from './dtos/update-user.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
+import { AuthGuard } from 'src/guards/auth.guard';
 // import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 
 @Controller('auth')
@@ -56,10 +58,12 @@ export class UsersController {
   // }
 
   @Get('whoami')
+  @UseGuards(AuthGuard)
   whoAmI(@CurrentUser() user: User) {
-    if (!user) {
-      throw new NotFoundException('No User Signed In');
-    }
+    // Not required since guard is used
+    // if (!user) {
+    //   throw new NotFoundException('No User Signed In');
+    // }
     return user;
   }
 
