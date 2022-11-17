@@ -31,4 +31,26 @@ describe('Authentication System (e2e)', () => {
         expect(email).toBe(email);
       });
   });
+
+  it('Signs Up a New User then returns the currently logged in user', async () => {
+    const email = "teste2e@test.com";
+
+    const res = await request(app.getHttpServer())
+      .post('/auth/signup')
+      .send({
+        email,
+        password: "12345"
+      })
+      .expect(201)
+
+      const cookie = res.get('Set-Cookie');
+
+      const { body } = await request(app.getHttpServer())
+      .get('/auth/whoami')
+      .set('Cookie', cookie)
+      .expect(200)
+
+      expect(body.email).toEqual(email);
+  });
+
 });
