@@ -46,6 +46,12 @@ export class UsersController {
   //   return this.usersService.findOne(session.userId);
   // }
 
+  // Without custom decorator
+  // @Get('whoami')
+  // whoAmI(@Request() request:Request) {
+  //   return request.currentUser;
+  // }
+
   @Get('whoami')
   whoAmI(@CurrentUser() user: string) {
     return user;

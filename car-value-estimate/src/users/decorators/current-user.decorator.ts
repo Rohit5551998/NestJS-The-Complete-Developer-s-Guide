@@ -5,6 +5,9 @@ export const CurrentUser = createParamDecorator(
   // Since no data will be supplied to Decorator changing it's type to never
   (data: never, context: ExecutionContext) => {
     const request = context.switchToHttp().getRequest();
-    return request.session.userId;
+    // return request.session.userId;
+    // Needed to make this change as decorator does not have access to dependency injection while
+    // interceptor does
+    return request.currentUser;
   }
 );
