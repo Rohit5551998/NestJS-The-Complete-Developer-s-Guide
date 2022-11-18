@@ -36,7 +36,7 @@ const cookieSession = require('cookie-session');
     //   entities: [User, Report],
     //   synchronize: true,
     // }), 
-    UsersModule, 
+    UsersModule,
     ReportsModule,
   ],
   controllers: [AppController],
@@ -51,12 +51,14 @@ const cookieSession = require('cookie-session');
   ],
 })
 export class AppModule {
+  constructor(private configService: ConfigService) { }
+
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(
         cookieSession({
-          keys: ['randomteststring']
-        }), 
+          keys: [this.configService.get<string>('COOKIE_KEY')]
+        }),
       ).forRoutes('*');
   }
 }
