@@ -4,8 +4,7 @@ import { Observable } from "rxjs";
 export class AdminGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest();
-
-    return (request.CurrentUser ? request.CurrentUser.admin : false);
+    return (request.currentUser ? request.currentUser.admin : false);
     // Equivalent to below code
     // if (!request.CurrentUser) {
     //   return false;
