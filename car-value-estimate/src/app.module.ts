@@ -18,6 +18,7 @@ const cookieSession = require('cookie-session');
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`
     }),
+    // New Approach did not work properly hence reverting typeorm version
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
     }),
