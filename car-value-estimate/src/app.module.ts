@@ -8,6 +8,7 @@ import { ReportsModule } from './reports/reports.module';
 import { User } from './users/user.entity';
 import { Report } from './reports/report.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmConfigService } from './config/typeorm.config';
 const dbConfig = require('../ormconfig.js');
 const cookieSession = require('cookie-session');
 
@@ -17,7 +18,11 @@ const cookieSession = require('cookie-session');
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`
     }),
-    TypeOrmModule.forRoot(dbConfig),
+    TypeOrmModule.forRootAsync({
+      useClass: TypeOrmConfigService,
+    }),
+    // Trying new approach due to migrations failing
+    // TypeOrmModule.forRoot(dbConfig),
     // Replacing for production deployment to ormconfig.js file
     // TypeOrmModule.forRootAsync({
     //   inject: [ConfigService],
