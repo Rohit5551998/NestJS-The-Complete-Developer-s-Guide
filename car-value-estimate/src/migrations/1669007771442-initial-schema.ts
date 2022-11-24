@@ -23,7 +23,7 @@
 
 // }
 
-const { MigrationInterface, QueryRunner, Table } = require('typeorm');
+// const { MigrationInterface, QueryRunner, Table } = require('typeorm');
 
 module.exports = class initialSchema1625847615203 {
     name = 'initialSchema1625847615203';
