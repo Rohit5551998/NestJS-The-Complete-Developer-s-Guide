@@ -37,4 +37,9 @@ switch (process.env.NODE_ENV) {
     throw new Error('Unknown Environment'); 
 }
 
+// Old typeorm command in package.json
+// "comments": {
+//  "typeorm": "cross-env NODE_ENV=development node --require ts-node/register ./node_modules/typeorm/cli.js"
+// },
+
 module.exports = dbConfig;
